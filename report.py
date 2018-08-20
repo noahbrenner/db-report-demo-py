@@ -18,8 +18,21 @@ def popular_articles_query(limit=None):
     """.format(number=limit or 'ALL')
 
 
+def popular_authors_query(limit=None):
+    return """
+        SELECT authors.name, format('%s %s', count(*), 'views') AS views
+            FROM log
+                JOIN articles ON log.path = ('/article/' || articles.slug)
+                JOIN authors ON articles.author = authors.id
+            GROUP BY authors.name
+            ORDER BY count(*) DESC
+            LIMIT {number};
+    """.format(number=limit or 'ALL')
+
+
 reports = [
     ('Three most popular articles', popular_articles_query(3)),
+    ('Most popular article authors', popular_authors_query()),
 ]
 
 
