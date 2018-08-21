@@ -36,7 +36,7 @@ reports = [
 ]
 
 
-def format_report(table, col2_label=''):
+def format_report(table):
     col_widths = tuple(max(map(len, column)) for column in zip(*table))
     row_format = '{:<%s} - {:>%s}' % col_widths
 
