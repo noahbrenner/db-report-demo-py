@@ -22,7 +22,8 @@ def popular_articles_query(limit=None):
     """Return an SQL string to query for popular articles.
 
     Args:
-        limit (int): The maximum number of results to query for. (optional)
+        limit (int): The maximum number of results to query for.  If
+                     ommited, query for all matching results.
 
     Returns:
         str: An SQL string.  When used in a query, the result will contain
@@ -44,7 +45,8 @@ def popular_authors_query(limit=None):
     """Return an SQL string to query for popular article authors.
 
     Args:
-        limit (int): The maximum number of results to query for. (optional)
+        limit (int): The maximum number of results to query for.  If
+                     ommited, query for all matching results.
 
     Returns:
         str: An SQL string.  When used in a query, the result will contain
@@ -68,7 +70,8 @@ def days_with_errors_query(limit=None):
     """Return an SQL string to qurery for days with many HTTP errors.
 
     Args:
-        limit (int): The maximum number of results to query for. (optional)
+        limit (int): The maximum number of results to query for.  If
+                     ommited, query for all matching results.
 
     Returns:
         str: An SQL string.  When used in a query, the result will contain
