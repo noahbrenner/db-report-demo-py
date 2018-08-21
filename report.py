@@ -9,7 +9,7 @@ DB_NAME = 'news'
 
 def popular_articles_query(limit=None):
     return """
-        SELECT title, format('%s %s', count(*), 'views') AS views
+        SELECT title, format('%s views', count(*)) AS views
             FROM log
                 JOIN articles ON log.path = ('/article/' || articles.slug)
             GROUP BY articles.title
@@ -20,7 +20,7 @@ def popular_articles_query(limit=None):
 
 def popular_authors_query(limit=None):
     return """
-        SELECT authors.name, format('%s %s', count(*), 'views') AS views
+        SELECT authors.name, format('%s views', count(*)) AS views
             FROM log
                 JOIN articles ON log.path = ('/article/' || articles.slug)
                 JOIN authors ON articles.author = authors.id
