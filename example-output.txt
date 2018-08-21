@@ -13,4 +13,8 @@ Rudolf von Treppenwitz - 423457 views
 Anonymous Contributor  - 170098 views
 Markoff Chaney         -  84557 views
 
+   Days with more than 1% HTTP error rate:
+
+July 17, 2016 - 2.26% errors
+
 === End of report ===

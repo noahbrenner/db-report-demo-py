@@ -30,9 +30,35 @@ def popular_authors_query(limit=None):
     """.format(number=limit or 'ALL')
 
 
+def days_with_errors_query(limit=None):
+    return """
+        WITH date_errpercent AS (
+            SELECT
+                    time::date AS date,
+                    (
+                        -- Count the number of errors on this date
+                        sum(CASE WHEN status != '200 OK' THEN 1 ELSE 0 END)
+                        -- Calculate percentage compared to the total requests
+                        -- Convert from integer so that we get decimal places
+                        / count(*)::decimal * 100
+                    ) as err_percent
+                FROM log
+                GROUP BY date
+        )
+        SELECT
+                to_char(date, 'FMMonth FMDD, YYYY') AS date,
+                format('%s%% errors', round(err_percent, 2)) AS errors
+            FROM date_errpercent
+            WHERE err_percent > 1
+            ORDER BY err_percent
+            LIMIT {number};
+    """.format(number=limit or 'ALL')
+
+
 reports = [
     ('Three most popular articles', popular_articles_query(3)),
     ('Most popular article authors', popular_authors_query()),
+    ('Days with more than 1% HTTP error rate', days_with_errors_query()),
 ]
 
 
